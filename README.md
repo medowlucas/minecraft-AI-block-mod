@@ -33,7 +33,7 @@ Para o servidor Fabric funcionar corretamente, é necessário instalar os seguin
 
 ## Uso
 
-1. Coloque o bloco MCP no mundo
+1. Coloque o bloco MCP no mundo (/give @s mcpblock:mcp_block) obs.: para criar blocos precisa de permissão no servidor (op {nick_player})
 2. Clique com o botão direito no bloco para abrir a GUI
 3. Digite sua pergunta ou solicitação (ex: "summon ender dragon" ou "give me diamond sword")
 4. Clique em enviar
