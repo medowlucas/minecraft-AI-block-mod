@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "name": "MCP Block",
   "description": "A block that sends text to MCP and displays the response",
-  "authors": ["SeuMod"],
+  "authors": ["Lucas Guilha"],
   "entrypoints": {
     "main": ["com.seumod.mcpblock.McpBlockMod"],
     "client": ["com.seumod.mcpblock.McpBlockModClient"]
