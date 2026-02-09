@@ -1,0 +1,39 @@
+# Gradle
+.gradle/
+build/
+*.jar
+*.class
+
+# Eclipse
+.settings/
+.project
+.classpath
+.metadata
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+*.swp
+*.swo
+
+# OSX
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Minecraft
+run/
+logs/
+debug.log
+
+# Fabric
+fabric.mod.json.backup
+
+# Custom
+cloudflared.exe

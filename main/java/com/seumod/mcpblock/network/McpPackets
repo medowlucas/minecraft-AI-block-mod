@@ -1,0 +1,27 @@
+package com.seumod.mcpblock.network;
+
+import com.seumod.mcpblock.McpBlockMod;
+import com.seumod.mcpblock.service.McpHttpClient;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.util.Identifier;
+
+public class McpPackets {
+    public static final Identifier MCP_REQUEST = new Identifier(McpBlockMod.MOD_ID, "mcp_request");
+
+    public static void registerPackets() {
+        ServerPlayNetworking.registerGlobalReceiver(MCP_REQUEST, (server, player, handler, buf, responseSender) -> {
+            String text = buf.readString();
+
+            server.execute(() -> {
+                // Query LMStudio
+                String response = McpHttpClient.queryLlm(text);
+                
+                if (response != null) {
+                    player.sendMessage(net.minecraft.text.Text.literal("[LMStudio] " + response));
+                } else {
+                    player.sendMessage(net.minecraft.text.Text.literal("[LMStudio] Erro ao consultar"));
+                }
+            });
+        });
+    }
+}

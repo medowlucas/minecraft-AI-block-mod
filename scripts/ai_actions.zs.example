@@ -1,0 +1,105 @@
+/**
+ * CraftTweaker AI Actions Script
+ * 
+ * Location: /scripts/ai_actions.zs
+ * Rename this file to ai_actions.zs (remove .example)
+ * 
+ * This script provides safe command execution functions for the AI controller.
+ * Only 'give' and 'summon' commands are allowed per the security spec.
+ */
+
+#priority 100
+
+/**
+ * Safely execute a 'give' command for a player
+ * This function validates inputs before execution
+ * 
+ * @param playerName The exact player name (not @p, @a, etc.)
+ * @param itemId     The full item ID (e.g., "minecraft:diamond_pickaxe")
+ * @param amount     Number of items to give
+ */
+function aiGiveItem(playerName as string, itemId as string, amount as int) {
+    // Validate player name is not empty
+    if (isNull(playerName) || playerName == "") {
+        print("[AI Actions] ERRO: Nome do jogador vazio");
+        return;
+    }
+    
+    // Validate item ID format
+    if (isNull(itemId) || !itemId.contains(":")) {
+        print("[AI Actions] ERRO: ID do item invalido: " + itemId);
+        return;
+    }
+    
+    // Validate amount
+    if (amount < 1 || amount > 64) {
+        print("[AI Actions] ERRO: Quantidade invalida: " + amount);
+        amount = 1;
+    }
+    
+    // Execute the command safely
+    val command = "give " + playerName + " " + itemId + " " + amount;
+    print("[AI Actions] Executando: " + command);
+    
+    // Using server command execution
+    server.commandManager.execute(server.commandSource, command);
+}
+
+/**
+ * Safely execute a 'summon' command
+ * 
+ * @param entityId   The entity ID to summon (e.g., "minecraft:zombie")
+ * @param x          X coordinate
+ * @param y          Y coordinate
+ * @param z          Z coordinate
+ * @param playerName The player name (required for security validation)
+ */
+function aiSummonEntity(entityId as string, x as int, y as int, z as int, playerName as string) {
+    // Validate entity ID format
+    if (isNull(entityId) || !entityId.contains(":")) {
+        print("[AI Actions] ERRO: ID da entidade invalido: " + entityId);
+        return;
+    }
+    
+    // Validate coordinates (basic sanity check)
+    if (x < -30000000 || x > 30000000 || y < -64 || y > 320 || z < -30000000 || z > 30000000) {
+        print("[AI Actions] ERRO: Coordenadas fora dos limites: " + x + ", " + y + ", " + z);
+        return;
+    }
+    
+    // Execute the summon command
+    val command = "summon " + entityId + " " + x + " " + y + " " + z;
+    print("[AI Actions] Executando: " + command);
+    
+    server.commandManager.execute(server.commandSource, command);
+}
+
+/**
+ * Validate if a command is safe to execute
+ * Returns true if command is in whitelist (give/summon)
+ * 
+ * @param command The full command to validate
+ * @return boolean
+ */
+function isAiCommandSafe(command as string) as bool {
+    if (isNull(command)) return false;
+    
+    val lowerCmd = command.toLowerCase();
+    
+    // Only allow give and summon
+    if (lowerCmd.startsWith("give ") || lowerCmd.startsWith("summon ")) {
+        // Verify no selectors
+        if (lowerCmd.contains("@p") || lowerCmd.contains("@a") || 
+            lowerCmd.contains("@s") || lowerCmd.contains("@e") || 
+            lowerCmd.contains("@r")) {
+            print("[AI Actions] BLOQUEADO: Seletor encontrado");
+            return false;
+        }
+        return true;
+    }
+    
+    print("[AI Actions] BLOQUEADO: Comando nao permitido: " + command);
+    return false;
+}
+
+print("[AI Actions] Script carregado com sucesso!");

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "mcpblock",
+  "version": "1.0.0",
+  "name": "MCP Block",
+  "description": "A block that sends text to MCP and displays the response",
+  "authors": ["SeuMod"],
+  "entrypoints": {
+    "main": ["com.seumod.mcpblock.McpBlockMod"],
+    "client": ["com.seumod.mcpblock.McpBlockModClient"]
+  },
+  "depends": {
+    "fabric-api": ">=0.141.3",
+    "minecraft": "1.21.11",
+    "fabricloader": ">=0.18.4"
+  }
+}
