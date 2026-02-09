@@ -76,13 +76,8 @@ O mod se comunica com o LMStudio rodando localmente na porta 1234. Certifique-se
   "name": "MCP Block",
   "description": "Block for interacting with LLM in Minecraft",
   "authors": [
-    "Your Name"
+    "Lucas Guilha"
   ],
-  "contact": {
-    "homepage": "https://github.com/your-repo"
-  },
-  "license": "MIT",
-  "icon": "assets/mcpblock/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -142,15 +137,6 @@ O mod se comunica com o LMStudio rodando localmente na porta 1234. Certifique-se
    ./gradlew runClient
    ```
 
-4. **Executar servidor em modo debug:**
-   ```bash
-   # Windows
-   .\gradlew.bat runServer
-
-   # Linux/Mac
-   ./gradlew runServer
-   ```
-
 5. **Limpar build antigo:**
    ```bash
    # Windows
@@ -178,7 +164,3 @@ O mod implementa medidas de segurança para bloquear comandos perigosos:
 ## Contribuição
 
 Sinta-se à vontade para abrir issues e pull requests no repositório do GitHub.
-
-## Licença
-
-MIT License
